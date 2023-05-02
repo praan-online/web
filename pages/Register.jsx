@@ -27,6 +27,7 @@ export default function(){
       })
       alert("Register successful")
       console.log(response)
+      location.href='/Login'
     }catch(err){
       console.log(err)
       alert("Error!!")

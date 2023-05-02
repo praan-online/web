@@ -13,6 +13,7 @@ export default function(){
         password: password
       })
       console.log(response)
+      localStorage.setItem('phone', response.data.user.number)
       alert("Login successful")
     }catch(err){
       if(err.response.status === 401){

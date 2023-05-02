@@ -1,6 +1,7 @@
 
 import connectDB from '../../db'
 import UserModel from '../../dbModels/UserModel'
+import Doctor from '../../dbModels/DoctorModel'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -15,12 +16,14 @@ export default async function handler(req, res) {
         const { number, password } = req.body
 
         // Check if the user exists in the database
-        const user = await UserModel.findOne({ number })
-
+        let user = await UserModel.findOne({ number })
+        if (!user) {
+          user = await Doctor.findOne({ number })
+        }
+        
         if (!user) {
           return res.status(401).json({ message: 'Invalid credentials' })
         }
-
         // Check if the password matches
         const passwordMatches = await user.comparePassword(password)
 
@@ -31,7 +34,7 @@ export default async function handler(req, res) {
         // Generate and return an access token
         const accessToken = generateAccessToken(user)
 
-        return res.status(200).json({ accessToken })
+        return res.status(200).json({ accessToken, user })
       } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Internal server error' })

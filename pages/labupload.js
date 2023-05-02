@@ -17,8 +17,7 @@ export default function
     formData.append('name', name);
     formData.append('desc', desc);
     formData.append('phone', phone);
-    formData.append('type', 'prescription')
-
+    formData.append('type', 'report')
 
     const config = {
       headers: { 'content-type': 'multipart/form-data' },
@@ -40,7 +39,7 @@ export default function
     <div className="bg-[url('/img/hpic.jpg')] flex flex-row items-center justify-center py-36">
         <div className='rounded-xl flex flex-row  w-72 h-96 bg-gradient-to-r from-sky-500 to-emerald-300'>
             <form  encType="multipart/form-data" onSubmit={handleSubmit} className='px-4 text-black'>
-                <p className='py-4 text-lg'>Upload Prescription</p>
+                <p className='py-4 text-lg'>Upload Lab Report</p>
                 <label for="name" >Name</label><br/>
                 <input value={name} onChange={e=>setname(e.target.value)} type="text" id="name" name="name"/><br/>
                 <label for="desc">Description</label><br/>
